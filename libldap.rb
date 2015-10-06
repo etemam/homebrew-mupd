@@ -10,6 +10,16 @@ class Libldap < Formula
                           "--disable-slapd",
                           "--enable-shared",
                           "--prefix=#{prefix}"
+    system "make"
+    mkdir "#{prefix}/lib"
+    cp "libraries/libldap/.libs/libldap-2.4.2.10.5.dylib", "#{prefix}/lib/"
+    cp "libraries/liblber/.libs/liblber-2.4.2.10.5.dylib", "#{prefix}/lib/"
+    ln_s "#{lib}/liblber-2.4.2.10.5.dylib", "#{lib}/liblber.dylib"
+    ln_s "#{lib}/liblber-2.4.2.10.5.dylib", "#{lib}/liblber-2.4.2.dylib"
+    ln_s "#{lib}/libldap-2.4.2.10.5.dylib", "#{lib}/libldap.dylib"
+    ln_s "#{lib}/libldap-2.4.2.10.5.dylib", "#{lib}/libldap-2.4.2.dylib"
+    mkdir "#{prefix}/include"
+    include.install Dir["include/*"]
   end
 
 end
